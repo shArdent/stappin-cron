@@ -1,0 +1,16 @@
+name: Send Return Reminder Daily
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # UTC jam 00:00 = WIB jam 07:00
+  workflow_dispatch:
+
+jobs:
+  call-edge-function:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send POST to Supabase Edge Function
+        run: |
+          curl -X POST https://dcsbzryfgkvsniujgwwe.functions.supabase.co/send-return-reminder \
+          -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
